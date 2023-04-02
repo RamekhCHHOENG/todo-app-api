@@ -17,38 +17,42 @@ router
 
   .post("/todo", async (req, res) => {
     try {
-      const { todo, isCompleted, createdAt } = req.body;
+      const { todo, isCompleted} = req.body;
       const newTodo = new Todo({
         id: uuidv4(),
         todo,
-        isCompleted,
-        createdAt,
+        isCompleted
       });
 
       await newTodo.save();
+      
+      // fetch the newly created todo from the database
+      const savedTodo = await Todo.findOne({ id: newTodo.id }).lean();
 
-      res.json({ success: true, todo: newTodo });
+      // remove the _id field from the response
+      delete savedTodo._id;
+
+      res.json({ success: true, data: savedTodo });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
   })
 
-  .put("/todo/:_id", async (req, res) => {
+  .put("/todo/:id", async (req, res) => {
     try {
-      const { _id } = req.params;
-      const { todo, isCompleted, createdAt } = req.body;
+      const { id } = req.params;
+      const { todo, isCompleted } = req.body;
   
-      console.log(req.body, 'request body'); // see if the request body is being correctly parsed
-      console.log(todo, isCompleted, createdAt); // see if the values are being correctly assigned
-
-
       const updatedTodo = await Todo.findOneAndUpdate(
-        { _id },
-        { todo, isCompleted, createdAt },
+        { id },
+        { todo, isCompleted, updatedAt: Date.now() },
         { new: true }
-      );
+      ).lean();
   
-      res.json({ success: true, todo: updatedTodo });
+      // remove the _id field from the response
+      delete updatedTodo._id;
+  
+      res.json({ success: true, data: updatedTodo });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
@@ -64,7 +68,7 @@ router
         return res.status(404).json({ success: false, error: "Todo not found" });
       }
   
-      res.json({ success: true, todo });
+      res.json({ success: true, data: todo });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
