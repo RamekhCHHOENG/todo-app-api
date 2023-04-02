@@ -25,5 +25,8 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "nodemon": "^2.0.22",
     "regenerator-runtime": "^0.13.11"
+  },
+  "engines": {
+    "node": ">=14.20.1"
   }
 }
