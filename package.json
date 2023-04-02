@@ -7,21 +7,25 @@
     "start": "nodemon app.js",
     "build": "rm -rf dist && yarn install && yarn run build",
     "serve": "node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mongoose": "^5.10.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
-  },
-  "engines": {
-    "node": ">=14.20.0"
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^29.5.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "nodemon": "^2.0.22",
+    "regenerator-runtime": "^0.13.11"
   }
 }

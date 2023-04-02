@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 // connection to mongodb
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/todo_express", {
+mongoose.connect("mongodb://localhost/todo_express", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
