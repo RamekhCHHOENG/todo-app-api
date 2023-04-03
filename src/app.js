@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // add this line to parse request body as JSON
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(cors());
 
 // routes
 app.use(require("./routes"));
