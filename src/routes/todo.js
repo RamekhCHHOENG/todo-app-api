@@ -21,7 +21,8 @@ router
       const { todo } = req.body
       const newTodo = new Todo({
         id: uuidv4(),
-        todo
+        todo,
+        createdAt: Date.now()
       })
 
       await newTodo.save()
